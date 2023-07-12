@@ -6,6 +6,8 @@ operator ="+"
 // console.log(cal.sub(90,30))
 // console.log(cal.div(5,2))
 
+const total = document.getElementById("total").innerHTML = 1000;
+
 
 const cal = {
     add(a,b) {
@@ -39,5 +41,7 @@ function calc(){
   return console.log("Please use either * / -")
  }
 };
+
+
 
 console.log(calc())
