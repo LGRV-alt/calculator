@@ -6,7 +6,6 @@ operator ="+"
 // console.log(cal.sub(90,30))
 // console.log(cal.div(5,2))
 
-const total = document.getElementById("total").innerHTML = 1000;
 
 
 const cal = {
@@ -44,4 +43,13 @@ function calc(){
 
 
 
+
 console.log(calc())
+
+const total = document.getElementById("total");
+
+change = function(){
+  total.innerHTML = "1000"
+};
+
+change()
