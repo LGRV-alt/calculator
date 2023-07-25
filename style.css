@@ -30,7 +30,7 @@
     grid-auto-rows: minmax(50px, auto);
     
 }
-.button{
+button{
     height: 50px;
     min-width: 50px;
     border: 2px solid black;
