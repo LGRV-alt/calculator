@@ -44,7 +44,7 @@ let runningTotal = ""
 let numTotal = "";
 let currentNum = ""
 let prevNum = ""
-let opState = "/"
+let opState = ""
 let sumTotal = ""
 
 
@@ -56,6 +56,7 @@ numberButtons.forEach((number) => {
     currentNum = runningTotal;
     console.log(runningTotal)
     result(prevNum, currentNum)
+    
   })
 });
 
@@ -66,6 +67,8 @@ opButtons.forEach((operator) => {
     opState = operator.innerHTML
     prevNum = currentNum
     runningTotal = ""
+    
+    
   })
 })
 
@@ -80,16 +83,6 @@ ac.addEventListener("click", ()=>{
 })
 
 
-
-
-
-
-
-// This is just to show what button is being pressed 
-function digit_pressed(digit) {
-  console.log("digit pressed" + digit);
-}
-
 //This takes the digit and displays it to the calc screen
 function showNumber(digit) {
   numTotal += digit
@@ -101,8 +94,7 @@ function showNumber(digit) {
 
 // Adds event for the equals key
 op.addEventListener("click", ()=>{
-  console.log(sumTotal)
-  total.innerHTML = sumTotal
+  total.innerHTML = currentNum
 })
 
 
@@ -110,16 +102,39 @@ op.addEventListener("click", ()=>{
   
 // basic function to complete a sum
 function result(num1, num2){
-  // find 
+  // changes the string form into int
   if(num1 != "" && num2 != ""){
     newNum1 = parseFloat(num1);
     newNum2 = parseFloat(num2);
-    sumTotal = cal.add(newNum1, newNum2);
-    return sumTotal;
-    
+
+    switch(opState){
+      case "+":
+        console.log("This is +");
+        currentNum = cal.add(newNum1, newNum2);
+        break;
+      
+        case "-":
+          console.log("This is -");
+          currentNum = cal.sub(newNum1, newNum2);
+          break;
+
+        case "*":
+          console.log("This is *");
+          currentNum = cal.mul(newNum1, newNum2);
+          break;
+
+        case "/":
+          console.log("This is /");
+          currentNum = cal.div(newNum1, newNum2);
+          break;
+    }
+    return currentNum
   }
 
 }
+
+
+
 
 
 
