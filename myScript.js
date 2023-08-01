@@ -40,6 +40,7 @@ const numberButtons = document.querySelectorAll(".number");
 const opButtons = document.querySelectorAll(".operator");
 const ac = document.getElementById("ac");
 const del = document.getElementById("del");
+const decimal = document.getElementById("decimal");
 
 let runningTotal = ""
 let numTotal = ""
@@ -58,11 +59,26 @@ numberButtons.forEach((number) => {
     runningTotal += number.textContent
     currentNum = runningTotal;
     result(prevNum, currentNum)
+
     // Displays the inputs from user
     displayTotal += number.textContent
     showDisplay()
   })
 });
+
+
+// Doesnt allow the user to enter two decimals on one number
+decimal.addEventListener("click", ()=>{
+  if(runningTotal.substring(1, 2) && (runningTotal.substring(3,4) === ".")){
+    console.log("please only enter one decimal place")
+    runningTotal = runningTotal.slice(0, -1);
+    currentNum = runningTotal;
+    displayTotal = displayTotal.slice(0, -1)
+    total.innerHTML = displayTotal;
+  }
+
+})
+
 
 // Event listener attached to each of the op buttons
 opButtons.forEach((operator) => {
@@ -98,6 +114,19 @@ function showDisplay() {
 op.addEventListener("click", ()=>{
   displayTotal = currentNum
   showDisplay()
+})
+
+// Adds event if the display is empty and the equals key is pressed
+op.addEventListener("click", ()=>{
+  if(displayTotal ===""){
+    displayTotal = "ENTER NUMBER"
+    showDisplay();
+    displayTotal = ""
+  } else if(displayTotal === Infinity){
+    displayTotal = "NICE TRY";
+    showDisplay()
+    displayTotal = ""
+  }
 })
 
 // Adds event for del key
