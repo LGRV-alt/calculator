@@ -39,65 +39,82 @@ const calEqual = document.getElementById("op")
 const numberButtons = document.querySelectorAll(".number");
 const opButtons = document.querySelectorAll(".operator");
 const ac = document.getElementById("ac");
+const del = document.getElementById("del");
 
 let runningTotal = ""
-let numTotal = "";
+let numTotal = ""
 let currentNum = ""
 let prevNum = ""
 let opState = ""
 let sumTotal = ""
+let displayTotal =""
+
+
 
 
 // Event listener attached to each of the number buttons
 numberButtons.forEach((number) => {
   number.addEventListener("click", ()=>{
-    showNumber(number.textContent)
-    runningTotal += number.innerHTML
+    runningTotal += number.textContent
     currentNum = runningTotal;
-    console.log(runningTotal)
     result(prevNum, currentNum)
-    
+    // Displays the inputs from user
+    displayTotal += number.textContent
+    showDisplay()
   })
 });
 
 // Event listener attached to each of the op buttons
 opButtons.forEach((operator) => {
   operator.addEventListener("click", ()=>{
-    showNumber(operator.textContent)
     opState = operator.innerHTML
     prevNum = currentNum
     runningTotal = ""
-    
-    
+    result(prevNum, currentNum)
+
+    // Displays the input from user
+    displayTotal += operator.textContent
+    showDisplay()
   })
 })
 
 // Event listener for the ac button - 
 ac.addEventListener("click", ()=>{
-  sumTotal = "";
   currentNum = ""
   prevNum = ""
   runningTotal = ""
-  numTotal = 
-  total.innerHTML = sumTotal
+  displayTotal = ""
+  showDisplay();
 })
 
 
 //This takes the digit and displays it to the calc screen
-function showNumber(digit) {
-  numTotal += digit
-  total.innerHTML = numTotal
+function showDisplay() {
+  total.innerHTML = displayTotal
 };
-
-
 
 
 // Adds event for the equals key
 op.addEventListener("click", ()=>{
-  total.innerHTML = currentNum
+  displayTotal = currentNum
+  showDisplay()
+})
+
+// Adds event for del key
+del.addEventListener("click", ()=>{
+  console.log("hitting del");
+  runningTotal = runningTotal.slice(0, -1);
+  currentNum = runningTotal;
+  displayTotal = displayTotal.slice(0, -1)
+  total.innerHTML = displayTotal;
+
 })
 
 
+function removeDigit(string){
+  newString = string.slice(0, -1);
+  return newString
+}
 
   
 // basic function to complete a sum
