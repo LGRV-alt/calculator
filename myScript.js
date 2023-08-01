@@ -50,6 +50,28 @@ let opState = ""
 let sumTotal = ""
 let displayTotal =""
 
+// Keydown event
+
+// document.addEventListener("keydown", (event)=>{
+//   console.log(event.key)
+//   runningTotal += event.key
+//   currentNum = runningTotal;
+//   result(prevNum, currentNum);
+
+//   // Displays the inputs from user
+//   displayTotal += event.key
+//   showDisplay();
+// })
+
+// document.addEventListener("keydown", (event)=>{
+//   console.log(event.key)
+//   if(event.key =/d/){
+//     console.log("issa number")
+
+//   }
+// })
+
+
 
 
 
