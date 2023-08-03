@@ -42,7 +42,7 @@ const ac = document.getElementById("ac");
 const del = document.getElementById("del");
 const decimal = document.getElementById("decimal");
 
-let runningTotal = ""
+let runningTotal = "Stan is a knob"
 let numTotal = ""
 let currentNum = ""
 let prevNum = ""
@@ -50,7 +50,7 @@ let opState = ""
 let sumTotal = ""
 let displayTotal =""
 
-// Keydown event
+// Keydown events
 
 // Takes keydown input for numbers and applies them to the display
 document.addEventListener("keydown", (event)=>{
@@ -58,14 +58,70 @@ document.addEventListener("keydown", (event)=>{
   number = regex.test(event.key);
 
   if(number == true){
-    runningTotal += event.key;
-    currentNum = runningTotal;
-    result(prevNum, currentNum);
-
-    displayTotal += event.key;
-    showDisplay();
+    keyNum(event.key);
+  } else if(event.key =="."){
+    keyNum(event.key);
+    checkDecimal();
   }
 })
+
+
+// Takes a string and displays it onto the calc screen
+function keyNum(number){
+  runningTotal += number;
+  currentNum = runningTotal;
+  result(prevNum, currentNum);
+
+  displayTotal += number;
+  showDisplay();
+
+}
+
+//Event listener attached for the operators
+document.addEventListener("keydown", (event)=>{
+  console.log(event);
+
+  switch(event.key){
+    case "+":
+      keyOp("+")
+      break;
+    
+    case "-":
+      keyOp("-");
+      break;
+
+    case "/":
+      keyOp("/");
+      break;
+    
+    case "*":
+      keyOp("*");
+      break;
+
+    case "Enter":
+      displayTotal = currentNum
+      showDisplay();
+      break;
+    
+    case "Backspace":
+      calcDel();
+      break;
+
+    case "Delete":
+      clearCache();
+      showDisplay();
+  }
+
+})
+
+function keyOp(operator){
+  opState = operator;
+  prevNum = currentNum;
+  runningTotal = ""
+  result(prevNum, currentNum);
+  displayTotal += operator;
+  showDisplay();
+}
 
 
 // Event listener attached to each of the number buttons
@@ -84,15 +140,17 @@ numberButtons.forEach((number) => {
 
 // Doesnt allow the user to enter two decimals on one number
 decimal.addEventListener("click", ()=>{
+  checkDecimal()
+})
+
+function checkDecimal(){
   if(runningTotal.substring(1, 2) && (runningTotal.substring(3,4) === ".")){
     console.log("please only enter one decimal place")
     runningTotal = runningTotal.slice(0, -1);
     currentNum = runningTotal;
     displayTotal = displayTotal.slice(0, -1)
     total.innerHTML = displayTotal;
-  }
-
-})
+}};
 
 
 // Event listener attached to each of the op buttons
@@ -111,12 +169,16 @@ opButtons.forEach((operator) => {
 
 // Event listener for the ac button - 
 ac.addEventListener("click", ()=>{
+  clearCache();
+  showDisplay();
+})
+
+function clearCache(){
   currentNum = ""
   prevNum = ""
   runningTotal = ""
   displayTotal = ""
-  showDisplay();
-})
+}
 
 
 //This takes the digit and displays it to the calc screen
@@ -146,20 +208,16 @@ op.addEventListener("click", ()=>{
 
 // Adds event for del key
 del.addEventListener("click", ()=>{
-  console.log("hitting del");
+  calcDel();
+});
+
+
+function calcDel(){
   runningTotal = runningTotal.slice(0, -1);
   currentNum = runningTotal;
   displayTotal = displayTotal.slice(0, -1)
   total.innerHTML = displayTotal;
-
-})
-
-
-function removeDigit(string){
-  newString = string.slice(0, -1);
-  return newString
 }
-
   
 // basic function to complete a sum
 function result(num1, num2){
