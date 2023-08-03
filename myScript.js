@@ -52,27 +52,20 @@ let displayTotal =""
 
 // Keydown event
 
-// document.addEventListener("keydown", (event)=>{
-//   console.log(event.key)
-//   runningTotal += event.key
-//   currentNum = runningTotal;
-//   result(prevNum, currentNum);
+// Takes keydown input for numbers and applies them to the display
+document.addEventListener("keydown", (event)=>{
+  let regex = /\d/;
+  number = regex.test(event.key);
 
-//   // Displays the inputs from user
-//   displayTotal += event.key
-//   showDisplay();
-// })
+  if(number == true){
+    runningTotal += event.key;
+    currentNum = runningTotal;
+    result(prevNum, currentNum);
 
-// document.addEventListener("keydown", (event)=>{
-//   console.log(event.key)
-//   if(event.key =/d/){
-//     console.log("issa number")
-
-//   }
-// })
-
-
-
+    displayTotal += event.key;
+    showDisplay();
+  }
+})
 
 
 // Event listener attached to each of the number buttons
