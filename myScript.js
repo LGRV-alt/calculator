@@ -24,6 +24,10 @@ const opButtons = document.querySelectorAll(".operator");
 const ac = document.getElementById("ac");
 const del = document.getElementById("del");
 const decimal = document.getElementById("decimal");
+const modal = document.getElementById("myModal");
+const btn = document.getElementById("myBtn");
+const span = document.getElementsByClassName("close")[0];
+const error = document.getElementById("errorMessage");
 
 // Empty variables used within the calculator
 let runningTotal = ""
@@ -45,6 +49,42 @@ function keyOp(operator){
   result(prevNum, currentNum);
   displayTotal += operator;
 };
+
+// Modal Functions
+
+
+// When the user clicks on the span (x), close the modal
+span.onclick = function(){
+  modal.style.display = "none";
+};
+
+// When the user clicks outside of the modal, close the modal
+window.onclick = function(event){
+  console.log(event);
+  if(event.target == modal){
+    modal.style.display = "none";
+  }
+
+}
+
+
+// This checks the user input if empty or /0
+function popModal(){
+  if(currentNum ==Infinity){
+    modal.style.display = "block";
+    error.innerHTML = "You cant divide by zero"
+    clearCache();
+    showDisplay();
+  }else if(currentNum == ""){
+    modal.style.display = "block";
+    error.innerHTML = "You need to enter a number";
+    clearCache();
+    showDisplay();
+  }else{
+    displayTotal = currentNum;
+    showDisplay();
+  }
+}
 
 
 // Looks for a second decimal used and removes it e.g (5.3.4)
@@ -119,37 +159,6 @@ function result(num1, num2){
   }
 };
 
-
-// This function checks that the user is not trying to divide by 0
-function checkDiv(num){
-  if(num == Infinity){
-    window.alert("WOT U DOING");
-    clearCache();
-  };
-};
-
-
-
-
-// Checks the displayTotal is a valid number returns the string !!NEEDS WORK e.g message
-function checkDisplay(){
-  displayTotal = currentNum;
-  if(displayTotal ===""){
-    
-    displayTotal = "ENTER NUMBER"
-    console.log("nice try")
-    
-    // showDisplay();
-  } else if(displayTotal === Infinity){
-    displayTotal = "NICE TRY";
-    showDisplay()
-    displayTotal = ""
-  } else{
-    displayTotal = currentNum
-  }
-};
-
-
   
 
 //-------------------------Keydown events-------------------------------------
@@ -198,7 +207,7 @@ document.addEventListener("keydown", (event)=>{
       break;
 
     case "Enter":
-      checkDisplay();
+      popModal();
       showDisplay();
       break;
     
@@ -248,9 +257,7 @@ ac.addEventListener("click", ()=>{
 
 // Adds event for the equals key
 op.addEventListener("click", ()=>{
-  checkDiv(currentNum);
-  checkDisplay();
-  // showDisplay();
+  popModal();  
 });
 
 // Adds event for del key
