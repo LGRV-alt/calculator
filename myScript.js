@@ -44,8 +44,8 @@ function keyOp(operator){
   runningTotal = ""
   result(prevNum, currentNum);
   displayTotal += operator;
-  
 };
+
 
 // Looks for a second decimal used and removes it e.g (5.3.4)
 function checkDecimal(){
@@ -93,7 +93,8 @@ function result(num1, num2){
   if(num1 != "" && num2 != ""){
     newNum1 = parseFloat(num1);
     newNum2 = parseFloat(num2);
-
+  
+   
     switch(opState){
       case "+":
         console.log("This is +");
@@ -111,7 +112,6 @@ function result(num1, num2){
           break;
 
         case "/":
-          console.log("This is /");
           currentNum = cal.div(newNum1, newNum2);
           break;
     }
@@ -119,14 +119,27 @@ function result(num1, num2){
   }
 };
 
+
+// This function checks that the user is not trying to divide by 0
+function checkDiv(num){
+  if(num == Infinity){
+    window.alert("WOT U DOING");
+    clearCache();
+  };
+};
+
+
+
+
 // Checks the displayTotal is a valid number returns the string !!NEEDS WORK e.g message
 function checkDisplay(){
   displayTotal = currentNum;
   if(displayTotal ===""){
+    
     displayTotal = "ENTER NUMBER"
     console.log("nice try")
-    showDisplay();
-    displayTotal = ""
+    
+    // showDisplay();
   } else if(displayTotal === Infinity){
     displayTotal = "NICE TRY";
     showDisplay()
@@ -135,6 +148,8 @@ function checkDisplay(){
     displayTotal = currentNum
   }
 };
+
+
   
 
 //-------------------------Keydown events-------------------------------------
@@ -144,6 +159,8 @@ document.addEventListener("keydown", (event)=>{
   // Any key with a key of a number
   let regex = /\d/;
   number = regex.test(event.key);
+
+  
 
   if(number == true){
     keyNum(event.key);
@@ -194,7 +211,6 @@ document.addEventListener("keydown", (event)=>{
       clearCache();
       showDisplay();
   }
-
 });
 
 //-------------Event listeners for the buttons on the calculator----------------
@@ -204,8 +220,8 @@ numberButtons.forEach((number) => {
   number.addEventListener("click", ()=>{
     keyNum(number.textContent);
     showDisplay();
-    
-  })
+    checkDecimal();
+  });
 });
 
 
@@ -232,8 +248,9 @@ ac.addEventListener("click", ()=>{
 
 // Adds event for the equals key
 op.addEventListener("click", ()=>{
+  checkDiv(currentNum);
   checkDisplay();
-  showDisplay();
+  // showDisplay();
 });
 
 // Adds event for del key
