@@ -48,7 +48,15 @@ function keyOp(operator){
   runningTotal = ""
   result(prevNum, currentNum);
   displayTotal += operator;
+  
 };
+
+// function checkOp(){
+//   if(opState !=""){
+//    displayTotal = displayTotal.slice(1, 2);
+//     showDisplay();
+//   }
+// }
 
 // Modal Functions
 
@@ -85,6 +93,8 @@ function popModal(){
     showDisplay();
   }
 }
+
+
 
 
 // Looks for a second decimal used and removes it e.g (5.3.4)
